@@ -1,0 +1,20 @@
+mat-grid-list {
+  width: 400px;
+}
+mat-chip-list {
+  width: 400px;
+}
+
+mat-chip {
+  height: 50px;
+  font-size: 18px;
+}
+.team {
+  width: 130px;
+  justify-content: center;
+}
+
+.score {
+  width: 65px;
+  justify-content: center;
+}

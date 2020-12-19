@@ -1,0 +1,19 @@
+<mat-chip-list aria-orientation="horizontal">
+  <mat-chip *ngIf="activeTeam1()" class="team" matBadge="*" matBadgeColor="accent" color="primary" selected>{{scoreService.totalScore.name1}}</mat-chip>
+  <mat-chip *ngIf="!activeTeam1()" class="team" color="primary" selected>{{scoreService.totalScore.name1}}</mat-chip>
+  <mat-chip class="score">{{scoreService.totalScore.firstTeam}}</mat-chip>
+  <mat-chip class="score">{{scoreService.totalScore.secondTeam}}</mat-chip>
+  <mat-chip *ngIf="!activeTeam1()" class="team" matBadge="*" matBadgeColor="accent" color="primary" selected>{{scoreService.totalScore.name2}}</mat-chip>
+  <mat-chip *ngIf="activeTeam1()" class="team" color="primary" selected>{{scoreService.totalScore.name2}}</mat-chip>
+</mat-chip-list>
+
+<button mat-icon-button color="warn" [disabled]="isEnabled(1)">
+  <mat-icon>favorite</mat-icon>
+</button>
+<button mat-icon-button color="warn" [disabled]="isEnabled(2)">
+  <mat-icon>favorite</mat-icon>
+</button>
+<button mat-icon-button color="warn" [disabled]="isEnabled(3)">
+  <mat-icon>favorite</mat-icon>
+</button>
+

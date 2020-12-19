@@ -1,0 +1,6 @@
+<section *ngFor="let ans of itemsService.getCurrentItem().answers; let i = index" (click)="changeScore(scoreService.getCurrentTeam(), ans.id)">
+  <div class="example-button-row">
+    <button *ngIf="ans.completed" mat-stroked-button color="primary" matBadge="{{ans.points}}" matBadgeColor="accent">{{ ans.answer }}</button>
+    <button *ngIf="!ans.completed"  mat-raised-button color="primary" >{{ ans.id }}</button>
+  </div>
+</section>
