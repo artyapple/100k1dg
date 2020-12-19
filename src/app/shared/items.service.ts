@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {WinnerComponent} from '../winner/winner.component';
+import {MatDialog} from '@angular/material/dialog';
 
 export interface Answer{
   id: number;
@@ -12,10 +14,15 @@ export interface Item{
   question: string;
   answers: Array<Answer>;
   completed: boolean;
+  other: Array<string>;
 }
 
 @Injectable({providedIn: 'root'})
 export class ItemsService {
+
+  constructor(public dialog: MatDialog) {
+  }
+
   public currentItem: number = 0;
 
   public answers1: Answer[] = [
@@ -37,8 +44,8 @@ export class ItemsService {
   ];
 
   public allItems: Item[] = [
-    {id:1, question: "This is the first question?", answers: this.answers1, completed: false},
-    {id:2, question: "This is the second question?", answers: this.answers2, completed: false}
+    {id:1, question: "This is the first question?", answers: this.answers1, completed: false, other: ["some string", "other string"]},
+    {id:2, question: "This is the second question?", answers: this.answers2, completed: false, other: ["some 2 string", "other 2 string"]}
   ];
 
   getCurrentItem(){
@@ -65,8 +72,9 @@ export class ItemsService {
       console.log(this.currentItem);
       this.currentItem++;
       console.log(this.currentItem);
+    } else {
+      this.openDialog();
     }
-
   }
 
   prevQuestion(){
@@ -75,5 +83,13 @@ export class ItemsService {
       this.currentItem--;
       console.log(this.currentItem);
     }
+  }
+
+  openDialog() {
+    this.dialog.open(WinnerComponent);
+  }
+
+  isLastItem() {
+    return (this.currentItem + 1 == this.allItems.length);
   }
 }

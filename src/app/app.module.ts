@@ -30,6 +30,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { WinnerComponent } from './winner/winner.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     QuestionComponent,
     ScoreCardComponent,
     HomeComponent,
-    GameComponent
+    GameComponent,
+    WinnerComponent
 
   ],
   imports: [
@@ -69,7 +72,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatChipsModule,
     MatBadgeModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

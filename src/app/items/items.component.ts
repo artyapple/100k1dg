@@ -10,6 +10,8 @@ import {ThemePalette} from '@angular/material/core';
 })
 export class ItemsComponent implements OnInit {
 
+  panelOpenState = false;
+
   constructor(public itemsService: ItemsService, public scoreService: ScoreService) { }
 
   public color: ThemePalette = 'primary';

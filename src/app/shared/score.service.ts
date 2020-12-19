@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {WinnerComponent} from '../winner/winner.component';
+import {MovetransitionComponent} from '../movetransition/movetransition.component';
 
 export interface Score{
   name1: string;
@@ -15,9 +17,41 @@ export interface CurrentScore{
 @Injectable({providedIn: 'root'})
 export class ScoreService {
 
+  constructor() {
+    this._totalScore = this._totalDefaultScore;
+  }
+
   public score: CurrentScore = { points: 0, lastChange: 0};
 
-  public totalScore: Score = { name1: 'Team1', name2: 'Team2', firstTeam: 0, secondTeam: 0};
+  private _totalScore: Score;
+  private _totalScoreInit: boolean = false;
+  private _totalDefaultScore: Score = { name1: 'Team1', name2: 'Team2', firstTeam: 0, secondTeam: 0};
+
+  public get totalScore(): Score{
+    if(this._totalScoreInit){
+      return this._totalScore;
+    }
+    this._totalScoreInit = true;
+    const readedScore = localStorage.getItem('score');
+    if(readedScore){
+      const score = <Score>JSON.parse(readedScore);
+      this._totalScore = score;
+      return this._totalScore;
+    }
+
+    this._totalScore = this._totalDefaultScore;
+    return this._totalScore;
+  }
+
+  private saveTotalScore(){
+    localStorage.setItem('score', JSON.stringify(this._totalScore));
+  }
+
+  public resetTotalScore(){
+    localStorage.removeItem('score');
+    this._totalScoreInit = false;
+    //this._totalScore = this._totalDefaultScore;
+  }
 
   public deads: number = 0;
 
@@ -37,6 +71,7 @@ export class ScoreService {
     } else if(this.score.lastChange==2) {
       this.totalScore.secondTeam += this.score.points;
     }
+    this.saveTotalScore();
   }
 
   pullRoundResult(){
@@ -45,6 +80,7 @@ export class ScoreService {
     } else if(this.score.lastChange==2) {
       this.totalScore.secondTeam -= this.score.points;
     }
+    this.saveTotalScore();
   }
 
   clearCurrentScore(){

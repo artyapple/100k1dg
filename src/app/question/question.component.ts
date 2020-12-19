@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ItemsService} from '../shared/items.service';
 import {ScoreService} from '../shared/score.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {WinnerComponent} from '../winner/winner.component';
+import {MovetransitionComponent} from '../movetransition/movetransition.component';
 
 @Component({
   selector: 'app-question',
@@ -10,7 +13,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class QuestionComponent implements OnInit {
 
-  constructor(public itemsService: ItemsService, public scoreService: ScoreService, private _snackBar: MatSnackBar) { }
+  constructor(public itemsService: ItemsService, public scoreService: ScoreService, public _snackBar: MatSnackBar, public dialog: MatDialog ) { }
 
 
   ngOnInit(): void {
@@ -45,6 +48,10 @@ export class QuestionComponent implements OnInit {
       this.scoreService.deads++;
       this.openSnackBar('Осталось попыток: '+ (3-this.scoreService.deads) , 'Промах!')
     }
+
+    if(this.scoreService.deads==3){
+      this.openDialog();
+    }
   }
 
   openSnackBar(message: string, action: string) {
@@ -53,5 +60,8 @@ export class QuestionComponent implements OnInit {
     });
   }
 
+  openDialog() {
+    this.dialog.open(MovetransitionComponent);
+  }
 
 }
